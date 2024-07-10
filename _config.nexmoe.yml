@@ -122,9 +122,22 @@ slotHead: |
 slotFooter: | 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
 
-# 评论框插槽
-slotComment: 
-      #请在你的配置文件中设置 slotComment
+slotComment: |
+    <script src="https://giscus.app/client.js"
+        data-repo="rolude/Giscus-slotComment"
+        data-repo-id="R_kgDOMUWiCw"
+        data-category="General"
+        data-category-id="DIC_kwDOMUWiC84CgsDe"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
 
 slotCopyright: | 
   <strong>版权声明：</strong>Rolude <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
