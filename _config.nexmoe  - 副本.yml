@@ -67,11 +67,11 @@ widgets:
                 - icon-twitter
                 - rgb(59, 151, 239)
                 - rgba(59, 151, 239, .1)
-            Steam:
-                - https://steamcommunity.com/profiles/76561199218037520/
-                - icon-steam
-                - rgb(25, 23, 23)
-                - rgba(25, 23, 23, .1)
+            Youtube:
+                - https://www.youtube.com/channel/UCsOii7HAObKf8ic3C7y5qpg
+                - icon-youtube
+                - rgb(255, 0, 0)
+                - rgba(255, 0, 0, .1)
             RSS:
                 - /atom.xml
                 - icon-rss
