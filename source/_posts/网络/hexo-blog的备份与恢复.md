@@ -2,8 +2,8 @@
 title: hexo blog的备份与恢复
 date: 2024-07-04 18:11:53
 tags: 
-       -博客
-       -功能
+       - 博客
+       - 功能
 categories: 网络
 ---
 ## 为什么我们需要备份博客？
@@ -22,19 +22,19 @@ categories: 网络
 ssh-keygen -t ed25519 -C <你的邮箱>
 {% endcodeblock %}
 - 输入后：我们要按三次回车，第二次时会问你是否要覆盖，输入“y”即可
-![image](https://raw.githubusercontent.com/rolude/image/main/a.png)
+![](https://img.rolude.icu/a.png)
 - 然后我们接着输入：
 {% codeblock %}
 cat ~/.ssh/id_rsa.pub
 {% endcodeblock %}
 - 获取key（显示出的信息即为密钥，如图打码所示）
-![image](https://raw.githubusercontent.com/rolude/image/main/b.png)
+![](https://img.rolude.icu/b.png)
 
 ## 第二步：配置key
 - 打开github（按图一步一步来）
-![image](https://raw.githubusercontent.com/rolude/image/main/1.png)
-![image](https://raw.githubusercontent.com/rolude/image/main/2.png)
-![image](https://raw.githubusercontent.com/rolude/image/main/3.png)
+![](https://img.rolude.icu/1.png)
+![](https://img.rolude.icu/2.png)
+![](https://img.rolude.icu/3.png)
 - 最后点击“Add SSh key”即可
 
 ## 第三步-创建分支和备份文件
