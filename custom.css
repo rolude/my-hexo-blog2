@@ -1,0 +1,10 @@
+.sticky-tag {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    margin: 0.5em 0;
+}

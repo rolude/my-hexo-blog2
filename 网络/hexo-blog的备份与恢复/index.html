@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="zh"><head>
+<title>hexo blog的备份与恢复 - Rolude</title>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<link rel="shortcut icon" href="https://img.rolude.icu/favicon.jpg" type="image/x-icon" />
+<meta name="description" content="为什么我们需要备份博客？ 在你更换新电脑时，或在你博客出现报错而不知所措时，如果你拥有了会“备份”的超  能力，你只需要动动你的手指输入几个命令，你便会回到那一刻。你便不会感到原来的博客已经报废了的伤心与无奈。不过别担心，这里有我，我出现了！  想必你点开这个博客，可能已经出现了这个处境，没关系的。那么不废话，请往下看：  第一步这里我用Github作示范首先我们得需要配置一个SSH-Key  在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo blog的备份与恢复">
+<meta property="og:url" content="https://rolude.icu/%E7%BD%91%E7%BB%9C/hexo-blog%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/index.html">
+<meta property="og:site_name" content="Rolude">
+<meta property="og:description" content="为什么我们需要备份博客？ 在你更换新电脑时，或在你博客出现报错而不知所措时，如果你拥有了会“备份”的超  能力，你只需要动动你的手指输入几个命令，你便会回到那一刻。你便不会感到原来的博客已经报废了的伤心与无奈。不过别担心，这里有我，我出现了！  想必你点开这个博客，可能已经出现了这个处境，没关系的。那么不废话，请往下看：  第一步这里我用Github作示范首先我们得需要配置一个SSH-Key  在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.rolude.icu/a.png">
+<meta property="og:image" content="https://img.rolude.icu/b.png">
+<meta property="og:image" content="https://img.rolude.icu/1.png">
+<meta property="og:image" content="https://img.rolude.icu/2.png">
+<meta property="og:image" content="https://img.rolude.icu/3.png">
+<meta property="article:published_time" content="2024-07-04T10:11:53.000Z">
+<meta property="article:modified_time" content="2024-08-11T07:21:31.000Z">
+<meta property="article:author" content="Rolude">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="功能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.rolude.icu/a.png">
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1723383332307">
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css">
+
+<link rel="stylesheet" href="/css/style.css?v=1723383332307">
+
+
+
+
+    
+        <link rel="stylesheet" href="/custom.css?v=1723383332307">
+    
+
+
+
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+<script src="/lib/lax.min.js" async></script>
+
+
+<script async src="/js/app.js?v=1723383332307"></script>
+
+ 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head><body class="nexmoe mdui-drawer-body-left"><div id="nexmoe-background"><div class="nexmoe-bg" style="background-image: url(https://img.rolude.icu/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240703132821.jpg)"></div><div class="mdui-appbar mdui-shadow-0"><div class="mdui-toolbar"><a class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: &#039;#drawer&#039;, swipe: true}" title="menu"><i class="mdui-icon nexmoefont icon-menu"></i></a><div class="mdui-toolbar-spacer"></div><a class="mdui-btn mdui-btn-icon" href="/" title="Rolude"><img src="https://img.rolude.icu/avatar.jpg" alt="Rolude"></a></div></div></div><div id="nexmoe-header"><div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Rolude">
+            <img src="https://img.rolude.icu/avatar.jpg" alt="Rolude" alt="Rolude">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>2</div>
+        <div><span>标签</span>3</div>
+        <div><span>分类</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/line.html" title="人生记录">
+            <i class="mdui-list-item-icon nexmoefont icon-coffee"></i>
+            <div class="mdui-list-item-content">
+                人生记录
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于我">
+            <i class="mdui-list-item-icon nexmoefont icon-coffee"></i>
+            <div class="mdui-list-item-content">
+                关于我
+            </div>
+        </a>
+        
+    </div>
+    
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="https://cn.bing.com/search?q=" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://space.bilibili.com/645922087"
+			target="_blank"
+			mdui-tooltip="{content: '哔哩哔哩'}"
+			style="
+				color: rgb(231, 106, 141);
+				background-color: rgba(231, 106, 141, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-bilibili"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://github.com/rolude"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://twitter.com/caiyue05969536"
+			target="_blank"
+			mdui-tooltip="{content: 'Twitter'}"
+			style="
+				color: rgb(59, 151, 239);
+				background-color: rgba(59, 151, 239, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-twitter"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://www.youtube.com/channel/UCsOii7HAObKf8ic3C7y5qpg"
+			target="_blank"
+			mdui-tooltip="{content: 'Youtube'}"
+			style="
+				color: rgb(255, 0, 0);
+				background-color: rgba(255, 0, 0, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-youtube"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="/atom.xml"
+			target="_blank"
+			mdui-tooltip="{content: 'RSS'}"
+			style="
+				color: rgb(235, 152, 0);
+				background-color: rgba(235, 152, 0, .15);
+			"
+		>
+			<i
+				class="nexmoefont icon-rss"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/网络/">网络</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/%E5%8A%9F%E8%83%BD/" style="font-size: 10px;">功能</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E7%BD%AE%E9%A1%B6/" style="font-size: 10px;">置顶</a>
+    </div>
+    
+  </div>
+
+    
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li></ul>
+    </div>
+  </div>
+
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/%E5%85%88%E7%9C%8B/">写在前面</a>
+          </li>
+        
+          <li>
+            <a href="/%E7%BD%91%E7%BB%9C/hexo-blog%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">hexo blog的备份与恢复</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-link">
+		<ul>
+        
+		</ul>
+    </div>
+</div>
+<style>
+.nexmoe-widget-wrap .nexmoe-link ul li a {
+    text-align : center;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a img {
+    max-width : 100%;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a p {
+    margin: 10px 0;
+}
+</style>
+
+    
+   
+    <div class="nexmoe-copyright">
+        &copy; 2024 Rolude
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover"> 
+            <img src="https://img.rolude.icu/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240703132821.jpg" alt="hexo blog的备份与恢复" loading="lazy">
+            <h1>hexo blog的备份与恢复</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2024年07月04日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h2 id="为什么我们需要备份博客？"><a href="#为什么我们需要备份博客？" class="headerlink" title="为什么我们需要备份博客？"></a>为什么我们需要备份博客？</h2><ul>
+<li>在你更换新电脑时，或在你博客出现报错而不知所措时，如果你拥有了会“备份”的超</li>
+</ul>
+<p>能力，你只需要动动你的手指输入几个命令，你便会回到那一刻。你便不会感到原来的博<br>客已经报废了的伤心与无奈。不过别担心，这里有我，我出现了！</p>
+<ul>
+<li>想必你点开这个博客，可能已经出现了这个处境，没关系的。那么不废话，请往下看：</li>
+</ul>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>这里我用Github作示范<br>首先我们得需要配置一个SSH-Key</p>
+<ul>
+<li>在本地博客中打开git<br>输入：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">ssh-keygen -t ed25519 -C <span class="hljs-tag">&lt;<span class="hljs-name">你的邮箱</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>输入后：我们要按三次回车，第二次时会问你是否要覆盖，输入“y”即可<br><img src="https://img.rolude.icu/a.png"></li>
+<li>然后我们接着输入：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> ~/.ssh/id_rsa.pub<br></code></pre></td></tr></table></figure></li>
+<li>获取key（显示出的信息即为密钥，如图打码所示）<br><img src="https://img.rolude.icu/b.png"></li>
+</ul>
+<h2 id="第二步：配置key"><a href="#第二步：配置key" class="headerlink" title="第二步：配置key"></a>第二步：配置key</h2><ul>
+<li>打开github（按图一步一步来）<br><img src="https://img.rolude.icu/1.png"><br><img src="https://img.rolude.icu/2.png"><br><img src="https://img.rolude.icu/3.png"></li>
+<li>最后点击“Add SSh key”即可</li>
+</ul>
+<h2 id="第三步-创建分支和备份文件"><a href="#第三步-创建分支和备份文件" class="headerlink" title="第三步-创建分支和备份文件"></a>第三步-创建分支和备份文件</h2><ul>
+<li><p>创建分支<br>进行git初始化</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">git <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
+<p>创建hexo的分支，用处是用来存放源码</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">git</span> checkout -<span class="hljs-keyword">b</span> hexo<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>备份文件<br>文件添加</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">git <span class="hljs-built_in">add</span> .<br></code></pre></td></tr></table></figure></li>
+<li><p>然后提交</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">git</span> commit -m &lt;这里为分支的名称，可以设置为<span class="hljs-string">&quot;hexo&quot;</span>&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>在github的博客仓库中添加远程的仓库</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">git remote <span class="hljs-keyword">add </span><span class="hljs-keyword">origin </span>&lt;你_<span class="hljs-built_in">config</span>.yml中的repository&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>最后部署到github</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> hexo<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>恭喜你完成了备份，接下来是怎么恢复</p>
+<h2 id="恢复博客"><a href="#恢复博客" class="headerlink" title="恢复博客"></a>恢复博客</h2><ul>
+<li>首先你得有安装hexo的环境，这里不详细讲</li>
+<li>在github中下载你所创建的分支里的源文件（就是上述备份的那个）<br>或者在本地hexo文件夹中打开git输入：<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">-b</span> hexo  <span class="hljs-tag">&lt;你的远程仓库地址&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>最后安装<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm install hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> hexo-deployer-git<br></code></pre></td></tr></table></figure></li>
+<li>完成操作</li>
+</ul>
+<p>之后备份博客的方法：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">git</span> <span class="hljs-keyword">add</span> .<br><span class="hljs-symbol">git</span> commit -m &lt;分支的名称&gt;<br><span class="hljs-symbol">git</span> <span class="hljs-keyword">push</span> origin hexo<br><span class="hljs-symbol">hexo</span> g -d<br></code></pre></td></tr></table></figure>
+
+<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><ul>
+<li>生成博客，查看是否有报错<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">hexo <span class="hljs-selector-tag">g</span><br></code></pre></td></tr></table></figure></li>
+<li>运行博客<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo s</span><br></code></pre></td></tr></table></figure></li>
+<li>或者<br>上传博客<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">hexo d</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>感谢您能看到最后，希望我这篇文章能够帮助你！<br>如果你喜欢，并且想一直支持我，赞助我可以为我提供动力<br><a href="/about">赞助页面</a></p>
+
+    <p><img src="" loading="lazy"></p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Rolude<br>
+        <strong>本文链接：</strong><a href="https://rolude.icu/%E7%BD%91%E7%BB%9C/hexo-blog%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" title="https:&#x2F;&#x2F;rolude.icu&#x2F;%E7%BD%91%E7%BB%9C&#x2F;hexo-blog%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;rolude.icu&#x2F;%E7%BD%91%E7%BB%9C&#x2F;hexo-blog%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>Rolude <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E5%8A%9F%E8%83%BD/" rel="tag">功能</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1723383332266"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          <script src="https://giscus.app/client.js"
+    data-repo="rolude/Giscus-slotComment"
+    data-repo-id="R_kgDOMUWiCw"
+    data-category="General"
+    data-category-id="DIC_kwDOMUWiC84CgsDe"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+</script>
+
+      </div>
+  
+</div></div><div class="nexmoe-post-right">    <div class="nexmoe-fixed">
+        <div class="nexmoe-tool">
+
+            
+
+            
+            
+            <button class="mdui-fab catalog" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                <div class="nexmoe-toc">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E5%A4%87%E4%BB%BD%E5%8D%9A%E5%AE%A2%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么我们需要备份博客？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="toc-number">2.</span> <span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AEkey"><span class="toc-number">3.</span> <span class="toc-text">第二步：配置key</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5-%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF%E5%92%8C%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">第三步-创建分支和备份文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%8D%9A%E5%AE%A2"><span class="toc-number">5.</span> <span class="toc-text">恢复博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5"><span class="toc-number">6.</span> <span class="toc-text">检查</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">7.</span> <span class="toc-text">最后</span></a></li></ol>
+                </div>
+            </button>
+            
+
+            
+
+            <a href="#nexmoe-content" class="backtop toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+        </div>
+    </div>
+</div></div><div id="nexmoe-footer"><!--!--></div><div id="nexmoe-search-space"><div class="search-container"><div class="search-header"><div class="search-input-container"><input class="search-input" type="text" placeholder="搜索" onInput="sinput();"></div><a class="search-close" onclick="sclose();">×</a></div><div class="search-body"></div></div></div><div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+</div></body></html>
